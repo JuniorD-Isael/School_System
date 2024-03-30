@@ -1,0 +1,2 @@
+INSERT INTO tb_colaboradores (nome, cpf, email, cargo) VALUES ('Ana', '234.567.890-11', 'ana@gmail.com', 1);
+INSERT INTO tb_colaboradores (nome, cpf, email, cargo) VALUES ('Carlos', '345.678.901-22', 'carlos@gmail.com', 2);
