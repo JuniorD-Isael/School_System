@@ -1,5 +1,5 @@
 package br.com.vainaweb.schollsystem.model;
-import br.com.vainaweb.schollsystem.dto.DadosColaborador;
+
 import br.com.vainaweb.schollsystem.enums.Cargo;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
@@ -18,6 +18,7 @@ import lombok.Setter;
 
 @Entity// Trata a classe como uma entidade
 @Table(name = "tb_colaboradores") // Diz que essa entidade é uma tabela
+
 @Getter
 @Setter
 @NoArgsConstructor

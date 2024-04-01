@@ -18,8 +18,17 @@ public class ColaboradorService {
         return repository.findAll(); // SELECT * FROM tb_colaborador
     }
 
-    public void cadastrar(DadosColaborador dados) {
-        var colaborador = new ColaboradorModel(dados.nome(), dados.email(), dados.cpf(), dados.cargo());
-        repository.save(colaborador); // INSERT INTO tb_colaborador (nome, email, cpf, cargo) VALUES (dados.nome, dados.email, dados.cpf, dados.cargo)
+    public String cadastrar(DadosColaborador dados) {
+
+        // SELECT * FROM tb_colaborador WHERE cpf = ??
+        var existente = repository.findByCpf(dados.cpf());
+
+        if (existente.isPresent()) {
+            return "CPF já cadastrado!";
+        } else {
+            var colaborador = new ColaboradorModel(dados.nome(), dados.email(), dados.cpf(), dados.cargo());
+            repository.save(colaborador); // INSERT INTO tb_colaborador (nome, email, cpf, cargo) VALUES (dados.nome, dados.email, dados.cpf, dados.cargo)
+            return "Colaborador cadastrado com sucesso!";
+        }
     }
 }
