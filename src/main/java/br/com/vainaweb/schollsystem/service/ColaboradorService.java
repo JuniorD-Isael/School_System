@@ -26,7 +26,7 @@ public class ColaboradorService {
         if (existente.isPresent()) {
             return "CPF já cadastrado!";
         } else {
-            var colaborador = new ColaboradorModel(dados.nome(), dados.email(), dados.cpf(), dados.cargo());
+            var colaborador = new ColaboradorModel(dados.nome(), dados.email(), dados.cpf(), dados.cargo(), dados.endereco());
             repository.save(colaborador); // INSERT INTO tb_colaborador (nome, email, cpf, cargo) VALUES (dados.nome, dados.email, dados.cpf, dados.cargo)
             return "Colaborador cadastrado com sucesso!";
         }

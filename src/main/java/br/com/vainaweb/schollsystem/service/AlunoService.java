@@ -1,25 +1,32 @@
 package br.com.vainaweb.schollsystem.service;
 
 import br.com.vainaweb.schollsystem.dto.DadosAluno;
-import br.com.vainaweb.schollsystem.model.AlunosModel;
-import br.com.vainaweb.schollsystem.repository.AlunosRepository;
+import br.com.vainaweb.schollsystem.model.AlunoModel;
+import br.com.vainaweb.schollsystem.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlunoService {
 
     @Autowired
-    private AlunosRepository repository;
+    private AlunoRepository repository;
 
-    public List<AlunosModel> encontarTodosOsAlunos() {
-        return repository.findAll(); // SELECT * FROM tb_aluno
+    public Optional<AlunoModel> cadastrar(DadosAluno dados) {
+
+        var aluno = repository.findByCpf(dados.cpf());
+
+        if(aluno.isPresent() && (aluno.get().getCpf() != null || aluno.get().getEmail() != null)) {
+            return Optional.empty();
+        } else {
+            return Optional.of(repository.save(new AlunoModel(dados)));
+        }
     }
 
-    public void cadastrar(DadosAluno dados) {
-        var aluno = new AlunosModel(dados.nome(), dados.email(), dados.cpf(), dados.curso(), dados.telefone());
-        repository.save(aluno); // INSERT INTO tb_aluno (nome, email, cpf, curso, telefone) VALUES (dados.nome, dados.email, dados.cpf, dados.curso, dados.telefone)
+    public List<AlunoModel> encontarTodosOsAlunos() {
+        return repository.findAll(); // SELECT * FROM tb_aluno
     }
 }

@@ -1,6 +1,9 @@
 package br.com.vainaweb.schollsystem.model;
 
+import br.com.vainaweb.schollsystem.dto.DadosAtualizados;
+import br.com.vainaweb.schollsystem.dto.EnderecoDTO;
 import br.com.vainaweb.schollsystem.enums.Cargo;
+import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -44,10 +47,17 @@ public class ColaboradorModel {
     @Embedded // Diz que esse atributo é incorporavel
     private Endereco endereco;
 
-    public ColaboradorModel(String nome, String email, String cpf, Cargo cargo) {
+    public ColaboradorModel(String nome, String email, String cpf, Cargo cargo, @Valid EnderecoDTO endereco) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
         this.cargo = cargo;
+        this.endereco = new Endereco(endereco.cep(), endereco.logradouro(), endereco.bairro(), endereco.cidade(),
+                endereco.complemento(), endereco.uf(), endereco.numero());
+    }
+
+    public void atualizarInfo(DadosAtualizados dados) {
+        this.nome = dados.nome() != null ? dados.nome() : this.nome;
+        this.email = dados.email();
     }
 }
