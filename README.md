@@ -25,7 +25,7 @@ O projeto segue a estrutura padrão de um projeto Maven:
 ## Como Executar
 
 ```bash
-git clone https://github.com/JuniorD-Isael/Scholl_System.git
+git clone https://github.com/JuniorD-Isael/School_System.git
 cd School_System
 mvn clean install
 mvn spring-boot:run
